@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const TARGET_URL = process.env.DESTINATION_URL || 'https://share.google/gZUSXx8DAtgWuPtb5';
 
 const MIME_TYPES = {
@@ -52,11 +52,24 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log('====================================================');
-  console.log(`🚀 Local test server running on port ${PORT}!`);
-  console.log(`📱 Main QR Dashboard:  http://localhost:${PORT}`);
-  console.log(`⚡ Live Redirect Test:  http://localhost:${PORT}/go`);
-  console.log(`🎯 Destination URL:     ${TARGET_URL}`);
-  console.log('====================================================');
-});
+function startServer(port) {
+  server.listen(port, () => {
+    console.log('====================================================');
+    console.log(`🚀 Local test server running on port ${port}!`);
+    console.log(`📱 Main QR Dashboard:  http://localhost:${port}`);
+    console.log(`⚡ Live Redirect Test:  http://localhost:${port}/go`);
+    console.log(`🎯 Destination URL:     ${TARGET_URL}`);
+    console.log('====================================================');
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️ Port ${port} is in use, trying port ${port + 1}...`);
+      startServer(port + 1);
+    } else {
+      console.error('Server error:', err);
+    }
+  });
+}
+
+startServer(DEFAULT_PORT);
