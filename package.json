@@ -1,0 +1,22 @@
+{
+  "name": "permanent-qr-redirect",
+  "version": "1.0.0",
+  "description": "Permanent Free Live QR Code with Vercel Edge Redirection",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "generate": "node generate-qr.js"
+  },
+  "keywords": [
+    "qr-code",
+    "permanent-qr",
+    "vercel",
+    "free-qr",
+    "redirect"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}

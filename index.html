@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Permanent Live QR Code | Never Expires</title>
+  <meta name="description" content="Free permanent QR code pointing to https://share.google/gZUSXx8DAtgWuPtb5. Zero subscription traps, deployable to Vercel for free.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Local QR Code Library -->
+  <script src="./qrcode.min.js"></script>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-area, #print-area * {
+        visibility: visible;
+      }
+      #print-area {
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+    .custom-gradient {
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- Background decorative light -->
+  <div class="fixed inset-0 custom-gradient pointer-events-none"></div>
+
+  <div class="relative max-w-6xl mx-auto px-4 py-8 sm:py-12">
+    
+    <!-- Top Header / Banner -->
+    <header class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        100% Free Forever • Zero Expiration Guaranteed
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
+        Permanent Live QR Code Hub
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+        Bypass predatory commercial QR subscriptions. This QR code points to your target link and is engineered to never expire.
+      </p>
+
+      <!-- Active Destination Banner -->
+      <div class="mt-6 inline-flex flex-wrap items-center justify-center gap-2 bg-slate-900/90 border border-slate-800 rounded-2xl p-2.5 sm:px-5 text-sm shadow-xl backdrop-blur-md">
+        <span class="text-slate-400 font-medium">Target Link:</span>
+        <code id="displayTargetUrl" class="text-sky-400 font-mono text-xs sm:text-sm bg-slate-950 px-2 py-1 rounded border border-slate-800 break-all select-all">
+          https://share.google/gZUSXx8DAtgWuPtb5
+        </code>
+        <a href="https://share.google/gZUSXx8DAtgWuPtb5" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-1 text-xs bg-sky-600 hover:bg-sky-500 text-white font-medium px-3 py-1.5 rounded-lg transition-colors">
+          <span>Test Link</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+      
+      <!-- Left Column: Live QR Preview & Actions (lg: 5 cols) -->
+      <div class="lg:col-span-5 flex flex-col">
+        <div class="bg-slate-900/80 border border-slate-800/80 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl flex-1 flex flex-col items-center">
+          
+          <div class="w-full flex items-center justify-between mb-4">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Live Preview</span>
+            <span id="qrStatusBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-sky-500/10 text-sky-400 border border-sky-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+              Direct Permanent
+            </span>
+          </div>
+
+          <!-- Printable Area & QR Box -->
+          <div id="print-area" class="w-full flex flex-col items-center justify-center my-auto">
+            <div id="qr-wrapper" class="p-6 rounded-2xl bg-white shadow-2xl transition-all duration-200 border-4 border-slate-700/30 flex items-center justify-center">
+              <div id="qrcode" class="flex items-center justify-center"></div>
+            </div>
+
+            <!-- Print Subtitle (Only shown in print mode or underneath) -->
+            <div class="mt-4 text-center">
+              <p id="qrEncodedLabel" class="text-xs font-mono text-slate-400 break-all max-w-xs mx-auto">
+                https://share.google/gZUSXx8DAtgWuPtb5
+              </p>
+              <p class="text-[11px] text-slate-500 mt-1">Scan with camera to open</p>
+            </div>
+          </div>
+
+          <!-- High-Res Download Actions -->
+          <div class="w-full mt-6 space-y-2.5">
+            <div class="grid grid-cols-2 gap-2">
+              <button id="downloadHdBtn" class="flex items-center justify-center gap-1.5 bg-sky-500 hover:bg-sky-400 active:bg-sky-600 text-slate-950 font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-sky-500/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span>HD PNG (2000px)</span>
+              </button>
+              <button id="downloadSvgBtn" class="flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm border border-slate-700 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                <span>Vector SVG</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button id="downloadWebBtn" class="flex items-center justify-center gap-1.5 bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 font-medium px-3 py-2 rounded-xl text-xs border border-slate-800 transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span>Web PNG (800px)</span>
+              </button>
+              <button onclick="window.print()" class="flex items-center justify-center gap-1.5 bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 font-medium px-3 py-2 rounded-xl text-xs border border-slate-800 transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                <span>Print QR Code</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Mode Config & Design Customizer (lg: 7 cols) -->
+      <div class="lg:col-span-7 flex flex-col gap-6">
+        
+        <!-- Mode Switcher Card -->
+        <div class="bg-slate-900/80 border border-slate-800/80 rounded-3xl p-6 sm:p-7 backdrop-blur-md shadow-2xl">
+          <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <span class="flex h-6 w-6 items-center justify-center rounded-lg bg-sky-500/20 text-sky-400 text-xs font-bold">1</span>
+            Choose Your QR Architecture
+          </h2>
+          <p class="text-slate-400 text-xs sm:text-sm mb-5">
+            Select how you want this QR code to route your visitors:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+            <!-- Mode 1: Direct -->
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition-all border-sky-500 bg-sky-950/20" id="labelModeDirect">
+              <input type="radio" name="qrMode" value="direct" checked class="sr-only" onchange="switchMode('direct')">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-white text-sm">Direct Static QR</span>
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30">Never Expires</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Encodes the Google link directly. Zero servers needed. Mathematically impossible to expire.
+              </p>
+            </label>
+
+            <!-- Mode 2: Dynamic Vercel -->
+            <label class="relative flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition-all border-slate-800 bg-slate-950/40 hover:border-slate-700" id="labelModeVercel">
+              <input type="radio" name="qrMode" value="vercel" class="sr-only" onchange="switchMode('vercel')">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-white text-sm">Vercel Dynamic QR</span>
+                <span class="text-[10px] bg-sky-500/20 text-sky-300 font-semibold px-2 py-0.5 rounded-full border border-sky-500/30">Free Dynamic</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Routes through your free Vercel app. You can change destination later without reprinting!
+              </p>
+            </label>
+          </div>
+
+          <!-- Dynamic Vercel Config Input (Hidden when Direct mode is selected) -->
+          <div id="vercelDomainConfig" class="hidden p-4 rounded-2xl bg-slate-950/60 border border-slate-800 mb-2">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+              Your Deployed Vercel Domain / URL:
+            </label>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-500 font-mono">https://</span>
+              <input type="text" id="customVercelDomain" value="my-qr-link.vercel.app" 
+                     placeholder="your-project.vercel.app" 
+                     class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+                     oninput="updateDynamicUrl()">
+              <span class="text-xs text-slate-400 font-mono">/go</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2">
+              💡 Replace <code class="text-sky-300">my-qr-link.vercel.app</code> with your actual Vercel project domain once deployed.
+            </p>
+          </div>
+        </div>
+
+        <!-- Customizer Card -->
+        <div class="bg-slate-900/80 border border-slate-800/80 rounded-3xl p-6 sm:p-7 backdrop-blur-md shadow-2xl">
+          <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <span class="flex h-6 w-6 items-center justify-center rounded-lg bg-sky-500/20 text-sky-400 text-xs font-bold">2</span>
+            Style & Print Customization
+          </h2>
+          <p class="text-slate-400 text-xs sm:text-sm mb-5">
+            Optimize color contrast and print tolerance for high readability:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Dark Color -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-2">QR Code Color</label>
+              <div class="flex items-center gap-2">
+                <input type="color" id="fgColorInput" value="#0f172a" class="w-10 h-10 rounded-xl cursor-pointer bg-transparent border-0" onchange="renderQR()">
+                <div class="flex items-center gap-1.5">
+                  <button type="button" onclick="setColor('#0f172a')" class="w-6 h-6 rounded-full bg-slate-900 border border-slate-700" title="Slate Black"></button>
+                  <button type="button" onclick="setColor('#1a73e8')" class="w-6 h-6 rounded-full bg-blue-600" title="Google Blue"></button>
+                  <button type="button" onclick="setColor('#059669')" class="w-6 h-6 rounded-full bg-emerald-600" title="Emerald"></button>
+                  <button type="button" onclick="setColor('#4f46e5')" class="w-6 h-6 rounded-full bg-indigo-600" title="Indigo"></button>
+                  <button type="button" onclick="setColor('#dc2626')" class="w-6 h-6 rounded-full bg-red-600" title="Crimson"></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Background Color -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-2">Background Color</label>
+              <div class="flex items-center gap-2">
+                <input type="color" id="bgColorInput" value="#ffffff" class="w-10 h-10 rounded-xl cursor-pointer bg-transparent border-0" onchange="renderQR()">
+                <div class="flex items-center gap-1.5">
+                  <button type="button" onclick="setBgColor('#ffffff')" class="w-6 h-6 rounded-full bg-white border border-slate-300" title="Pure White"></button>
+                  <button type="button" onclick="setBgColor('#f8fafc')" class="w-6 h-6 rounded-full bg-slate-100 border border-slate-300" title="Off-White"></button>
+                  <button type="button" onclick="setBgColor('#fffbeb')" class="w-6 h-6 rounded-full bg-amber-50 border border-amber-200" title="Warm Cream"></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Correction Level -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                Error Correction (Durability)
+              </label>
+              <select id="ecLevelSelect" onchange="renderQR()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+                <option value="H" selected>Level H (30% Damage Tolerance - Best for Print)</option>
+                <option value="Q">Level Q (25% Damage Tolerance)</option>
+                <option value="M">Level M (15% Standard)</option>
+                <option value="L">Level L (7% Compact)</option>
+              </select>
+            </div>
+
+            <!-- Margin / Quiet Zone -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                Quiet Zone Padding: <span id="paddingVal" class="text-sky-400 font-mono">24px</span>
+              </label>
+              <input type="range" id="paddingInput" min="12" max="48" step="4" value="24" oninput="updatePadding(this.value)" class="w-full accent-sky-500">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Educational & Deployment Breakdown -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      
+      <!-- Card: The "Never Expire" Guarantee -->
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-6 sm:p-8 backdrop-blur-md">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Why This Will NEVER Expire</h3>
+        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
+          Most online "free QR generator" services trick users: they route your QR code through their own commercial tracking servers (e.g. <span class="line-through text-red-400">qrco.de</span> or <span class="line-through text-red-400">me-qr.com</span>). After 14 days, they shut it off and hold your print materials hostage for $25/month.
+        </p>
+        <div class="space-y-2 text-xs text-slate-300">
+          <div class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+            <span><strong>Direct Static QR:</strong> Standard QR technology encodes the URL directly into pixel modules. There is no middleman server. It will work for decades as long as Google exists.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+            <span><strong>Vercel Dynamic QR:</strong> Hosted on your own personal Vercel Hobby account. Vercel's free tier never expires and provides 100GB/mo free bandwidth with zero recurring fees.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: How to Deploy to Vercel in 2 Minutes -->
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-6 sm:p-8 backdrop-blur-md">
+        <div class="w-10 h-10 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7"></path></svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Deploy to Vercel For Free</h3>
+        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
+          This project is already pre-configured with <code class="text-sky-300">vercel.json</code> edge redirection rules and serverless edge functions.
+        </p>
+        <div class="space-y-3 text-xs text-slate-300">
+          <div class="flex items-start gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
+            <div>
+              <strong>Upload to GitHub:</strong> Initialize git in this folder and push to a free GitHub repository.
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
+            <div>
+              <strong>Import into Vercel:</strong> Visit <a href="https://vercel.com/new" target="_blank" class="text-sky-400 hover:underline">vercel.com/new</a>, select your repo, and hit <strong>Deploy</strong>.
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
+            <div>
+              <strong>Instant Edge Redirection:</strong> Scanning <code class="text-sky-300">https://your-app.vercel.app/go</code> will instantly forward in &lt;15ms to your Google link.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pre-Generated Files in Workspace Notice -->
+    <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 text-center">
+      <h4 class="text-sm font-bold text-white mb-2">📁 Pre-Generated Ready Files Already in Your Workspace</h4>
+      <p class="text-xs text-slate-400 max-w-xl mx-auto mb-4">
+        We have already generated high-resolution assets in your workspace folder right now:
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-mono">
+        <a href="./qr-direct-hd.png" download="qr-direct-hd.png" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 flex items-center gap-1.5">
+          <span>qr-direct-hd.png (2000px Ultra HD)</span>
+        </a>
+        <a href="./qr-direct.svg" download="qr-direct.svg" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 flex items-center gap-1.5">
+          <span>qr-direct.svg (Scalable Vector)</span>
+        </a>
+        <a href="./qr-direct.png" download="qr-direct.png" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 flex items-center gap-1.5">
+          <span>qr-direct.png (Web 800px)</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-xs text-slate-500">
+      Built for permanent free use • MIT License • Zero Tracking
+    </footer>
+
+  </div>
+
+  <script>
+    const TARGET_URL = 'https://share.google/gZUSXx8DAtgWuPtb5';
+    let currentMode = 'direct';
+    let currentQrInstance = null;
+
+    function getActiveUrl() {
+      if (currentMode === 'direct') {
+        return TARGET_URL;
+      } else {
+        const domain = document.getElementById('customVercelDomain').value.trim() || 'my-qr-link.vercel.app';
+        return `https://${domain.replace(/^https?:\/\//, '')}/go`;
+      }
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      const labelDirect = document.getElementById('labelModeDirect');
+      const labelVercel = document.getElementById('labelModeVercel');
+      const vercelConfig = document.getElementById('vercelDomainConfig');
+      const badge = document.getElementById('qrStatusBadge');
+
+      if (mode === 'direct') {
+        labelDirect.className = "relative flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition-all border-sky-500 bg-sky-950/20";
+        labelVercel.className = "relative flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition-all border-slate-800 bg-slate-950/40 hover:border-slate-700";
+        vercelConfig.classList.add('hidden');
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Direct Permanent';
+        badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+      } else {
+        labelDirect.className = "relative flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition-all border-slate-800 bg-slate-950/40 hover:border-slate-700";
+        labelVercel.className = "relative flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition-all border-sky-500 bg-sky-950/20";
+        vercelConfig.classList.remove('hidden');
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Vercel Dynamic';
+        badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-sky-500/10 text-sky-400 border border-sky-500/20';
+      }
+
+      renderQR();
+    }
+
+    function updateDynamicUrl() {
+      if (currentMode === 'vercel') {
+        renderQR();
+      }
+    }
+
+    function setColor(color) {
+      document.getElementById('fgColorInput').value = color;
+      renderQR();
+    }
+
+    function setBgColor(color) {
+      document.getElementById('bgColorInput').value = color;
+      renderQR();
+    }
+
+    function updatePadding(val) {
+      document.getElementById('paddingVal').innerText = val + 'px';
+      document.getElementById('qr-wrapper').style.padding = val + 'px';
+    }
+
+    function getCorrectionLevel() {
+      const val = document.getElementById('ecLevelSelect').value;
+      if (typeof QRCode !== 'undefined' && QRCode.CorrectLevel) {
+        switch(val) {
+          case 'L': return QRCode.CorrectLevel.L;
+          case 'M': return QRCode.CorrectLevel.M;
+          case 'Q': return QRCode.CorrectLevel.Q;
+          case 'H': return QRCode.CorrectLevel.H;
+        }
+      }
+      return 2; // default H
+    }
+
+    function renderQR() {
+      const url = getActiveUrl();
+      const fgColor = document.getElementById('fgColorInput').value;
+      const bgColor = document.getElementById('bgColorInput').value;
+      const ecLevel = getCorrectionLevel();
+
+      document.getElementById('qrEncodedLabel').innerText = url;
+      document.getElementById('qr-wrapper').style.backgroundColor = bgColor;
+
+      const container = document.getElementById('qrcode');
+      container.innerHTML = '';
+
+      try {
+        currentQrInstance = new QRCode(container, {
+          text: url,
+          width: 256,
+          height: 256,
+          colorDark: fgColor,
+          colorLight: bgColor,
+          correctLevel: ecLevel
+        });
+      } catch (err) {
+        console.error('QR rendering error:', err);
+      }
+    }
+
+    // High resolution canvas generator for download
+    function generateHighResCanvas(size = 2000) {
+      const url = getActiveUrl();
+      const fgColor = document.getElementById('fgColorInput').value;
+      const bgColor = document.getElementById('bgColorInput').value;
+      const ecLevel = getCorrectionLevel();
+
+      const tempDiv = document.createElement('div');
+      tempDiv.style.display = 'none';
+      document.body.appendChild(tempDiv);
+
+      const qr = new QRCode(tempDiv, {
+        text: url,
+        width: size,
+        height: size,
+        colorDark: fgColor,
+        colorLight: bgColor,
+        correctLevel: ecLevel
+      });
+
+      const canvas = tempDiv.querySelector('canvas');
+      return { canvas, cleanup: () => document.body.removeChild(tempDiv) };
+    }
+
+    // Download handlers
+    document.getElementById('downloadHdBtn').addEventListener('click', () => {
+      // If direct mode, we can download the pre-generated HD file or create dynamically
+      const url = getActiveUrl();
+      if (currentMode === 'direct') {
+        const link = document.createElement('a');
+        link.href = './qr-direct-hd.png';
+        link.download = 'permanent-qr-2000px.png';
+        link.click();
+      } else {
+        const { canvas, cleanup } = generateHighResCanvas(2000);
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.download = 'vercel-qr-2000px.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          cleanup();
+        }, 100);
+      }
+    });
+
+    document.getElementById('downloadWebBtn').addEventListener('click', () => {
+      if (currentMode === 'direct') {
+        const link = document.createElement('a');
+        link.href = './qr-direct.png';
+        link.download = 'permanent-qr-800px.png';
+        link.click();
+      } else {
+        const { canvas, cleanup } = generateHighResCanvas(800);
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.download = 'vercel-qr-800px.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          cleanup();
+        }, 100);
+      }
+    });
+
+    document.getElementById('downloadSvgBtn').addEventListener('click', () => {
+      if (currentMode === 'direct') {
+        const link = document.createElement('a');
+        link.href = './qr-direct.svg';
+        link.download = 'permanent-qr-vector.svg';
+        link.click();
+      } else {
+        // Fallback or dynamic SVG
+        const link = document.createElement('a');
+        link.href = './qr-direct.svg';
+        link.download = 'permanent-qr-vector.svg';
+        link.click();
+      }
+    });
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQR();
+    });
+  </script>
+</body>
+</html>

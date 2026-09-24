@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/go",
+      "destination": "https://share.google/gZUSXx8DAtgWuPtb5",
+      "permanent": false
+    },
+    {
+      "source": "/r",
+      "destination": "https://share.google/gZUSXx8DAtgWuPtb5",
+      "permanent": false
+    },
+    {
+      "source": "/link",
+      "destination": "https://share.google/gZUSXx8DAtgWuPtb5",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    }
+  ]
+}
