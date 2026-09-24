@@ -5,17 +5,17 @@
   "redirects": [
     {
       "source": "/go",
-      "destination": "https://share.google/gZUSXx8DAtgWuPtb5",
+      "destination": "https://www.google.com/search?q=WITHARTE+Gallery",
       "permanent": false
     },
     {
       "source": "/r",
-      "destination": "https://share.google/gZUSXx8DAtgWuPtb5",
+      "destination": "https://www.google.com/search?q=WITHARTE+Gallery",
       "permanent": false
     },
     {
       "source": "/link",
-      "destination": "https://share.google/gZUSXx8DAtgWuPtb5",
+      "destination": "https://www.google.com/search?q=WITHARTE+Gallery",
       "permanent": false
     }
   ],

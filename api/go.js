@@ -2,7 +2,7 @@
 // Supports environment variable DESTINATION_URL if you ever want to change it via Vercel dashboard
 
 export default function handler(req, res) {
-  const targetUrl = process.env.DESTINATION_URL || 'https://share.google/gZUSXx8DAtgWuPtb5';
+  const targetUrl = process.env.DESTINATION_URL || 'https://www.google.com/search?q=WITHARTE+Gallery';
   
   // Set cache headers so edge caches for fast responses but revalidates
   res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');

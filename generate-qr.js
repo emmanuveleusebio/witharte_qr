@@ -2,7 +2,7 @@ const QRCode = require('qrcode');
 const fs = require('fs');
 const path = require('path');
 
-const TARGET_URL = 'https://share.google/gZUSXx8DAtgWuPtb5';
+const TARGET_URL = 'https://www.google.com/search?q=WITHARTE+Gallery';
 
 async function generateQRCodes() {
   console.log(`Generating permanent QR codes for: ${TARGET_URL}`);

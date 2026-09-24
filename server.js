@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
-const TARGET_URL = process.env.DESTINATION_URL || 'https://share.google/gZUSXx8DAtgWuPtb5';
+const TARGET_URL = process.env.DESTINATION_URL || 'https://www.google.com/search?q=WITHARTE+Gallery';
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
