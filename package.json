@@ -4,7 +4,7 @@
   "description": "Permanent Free Live QR Code with Vercel Edge Redirection",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve .",
+    "start": "node server.js",
     "generate": "node generate-qr.js"
   },
   "keywords": [
