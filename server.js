@@ -12,6 +12,7 @@ const MIME_TYPES = {
   '.json': 'application/json',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
   '.svg': 'image/svg+xml'
 };
 
@@ -30,35 +31,55 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 2. Serve static dashboard files
-  if (pathname === '/') {
-    pathname = '/index.html';
+  // Helper to serve file
+  function serveFile(targetFile) {
+    fs.stat(targetFile, (err, stats) => {
+      if (!err && stats.isFile()) {
+        const ext = path.extname(targetFile).toLowerCase();
+        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+        res.writeHead(200, { 'Content-Type': contentType });
+        fs.createReadStream(targetFile).pipe(res);
+        return;
+      }
+
+      if (!err && stats.isDirectory()) {
+        const indexInDir = path.join(targetFile, 'index.html');
+        return serveFile(indexInDir);
+      }
+
+      // Try looking in public/ directory
+      const publicPath = path.join(__dirname, 'public', pathname);
+      fs.stat(publicPath, (errPublic, statsPublic) => {
+        if (!errPublic && statsPublic.isFile()) {
+          const ext = path.extname(publicPath).toLowerCase();
+          const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+          res.writeHead(200, { 'Content-Type': contentType });
+          fs.createReadStream(publicPath).pipe(res);
+          return;
+        }
+
+        if (!errPublic && statsPublic.isDirectory()) {
+          const publicIndex = path.join(publicPath, 'index.html');
+          return serveFile(publicIndex);
+        }
+
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
+      });
+    });
   }
 
-  const filePath = path.join(__dirname, pathname);
-
-  fs.stat(filePath, (err, stats) => {
-    if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
-      return;
-    }
-
-    const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-
-    res.writeHead(200, { 'Content-Type': contentType });
-    fs.createReadStream(filePath).pipe(res);
-  });
+  const initialPath = pathname === '/' ? path.join(__dirname, 'index.html') : path.join(__dirname, pathname);
+  serveFile(initialPath);
 });
 
 function startServer(port) {
   server.listen(port, () => {
     console.log('====================================================');
     console.log(`🚀 Local test server running on port ${port}!`);
-    console.log(`📱 Main QR Dashboard:  http://localhost:${port}`);
-    console.log(`⚡ Live Redirect Test:  http://localhost:${port}/go`);
-    console.log(`🎯 Destination URL:     ${TARGET_URL}`);
+    console.log(`📱 Main QR Dashboard:    http://localhost:${port}`);
+    console.log(`📰 Best News Apps Blog:  http://localhost:${port}/best-news-apps-india-2026`);
+    console.log(`⚡ Live Redirect Test:    http://localhost:${port}/go`);
     console.log('====================================================');
   });
 
