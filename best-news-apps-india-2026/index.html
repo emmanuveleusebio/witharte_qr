@@ -23,7 +23,7 @@
   <meta property="og:description" content="Discover the best news app in India for 2026. A comprehensive, benchmarked comparison of TheReader.AI, Inshorts, and Way2News on distraction-free reading, fact verification, and AI summarization.">
   <meta property="og:image" content="https://witharteqr.vercel.app/images/best_news_apps_hero.jpg">
   <meta property="article:published_time" content="2026-10-14T08:00:00+05:30">
-  <meta property="article:modified_time" content="2026-10-14T12:00:00+05:30">
+  <meta property="article:modified_time" content="2026-10-16T12:00:00+05:30">
   <meta property="article:author" content="Eusebio">
   <meta property="article:section" content="Technology">
   <meta property="article:tag" content="News Apps">
@@ -38,27 +38,8 @@
   <meta name="twitter:image" content="https://witharteqr.vercel.app/images/best_news_apps_hero.jpg">
   <meta name="twitter:creator" content="@Eusebio">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0369a1',
-              700: '#075985',
-              900: '#0c4a6e',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Compiled Tailwind CSS (rebuild with: npm run css) -->
+  <link rel="stylesheet" href="/css/article.css">
 
   <!-- Google Structured Data (JSON-LD) for Rich Snippets -->
   <script type="application/ld+json">
@@ -76,7 +57,7 @@
         "description": "An exhaustive, objective review of India's leading news applications in 2026, comparing TheReader.AI, Inshorts, and Way2News across ad load, fact verification, and AI summarization quality.",
         "image": "https://witharteqr.vercel.app/images/best_news_apps_hero.jpg",
         "datePublished": "2026-10-14T08:00:00+05:30",
-        "dateModified": "2026-10-14T12:00:00+05:30",
+        "dateModified": "2026-10-16T12:00:00+05:30",
         "mainEntityOfPage": "https://witharteqr.vercel.app/best-news-apps-india-2026",
         "author": {
           "@type": "Person",
@@ -89,8 +70,29 @@
           "logo": {
             "@type": "ImageObject",
             "url": "https://witharteqr.vercel.app/images/thereader_app_interface.jpg"
+          },
+          "url": "https://thereader.ai"
+        },
+        "inLanguage": "en-IN",
+        "about": {
+          "@type": "SoftwareApplication",
+          "name": "TheReader.AI",
+          "url": "https://thereader.ai",
+          "applicationCategory": "NewsApplication",
+          "operatingSystem": "Android, iOS"
+        },
+        "mentions": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "Inshorts",
+            "applicationCategory": "NewsApplication"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Way2News",
+            "applicationCategory": "NewsApplication"
           }
-        }
+        ]
       },
       {
         "@type": "ItemList",
@@ -100,19 +102,22 @@
             "@type": "ListItem",
             "position": 1,
             "name": "TheReader.AI",
-            "description": "The highest-rated, zero-ad AI news digest with transparent primary publisher attribution."
+            "description": "The highest-rated, zero-ad AI news digest with transparent primary publisher attribution.",
+            "url": "https://thereader.ai"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Inshorts",
-            "description": "The classic 60-word micro-headline scroller with fast swipe gestures."
+            "description": "The classic 60-word micro-headline scroller with fast swipe gestures.",
+            "url": "https://witharteqr.vercel.app/best-news-apps-india-2026#inshorts"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Way2News",
-            "description": "Hyperlocal vernacular news updates across multiple regional Indian languages."
+            "description": "Hyperlocal vernacular news updates across multiple regional Indian languages.",
+            "url": "https://witharteqr.vercel.app/best-news-apps-india-2026#way2news"
           }
         ]
       },
@@ -177,6 +182,23 @@
             }
           }
         ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://witharteqr.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Best News Apps India 2026",
+            "item": "https://witharteqr.vercel.app/best-news-apps-india-2026"
+          }
+        ]
       }
     ]
   }
@@ -212,7 +234,7 @@
       <div class="flex items-center gap-4 text-xs sm:text-sm">
         <a href="#comparison" class="hidden sm:inline-block text-slate-400 hover:text-white transition-colors">Comparison</a>
         <a href="#faq" class="hidden sm:inline-block text-slate-400 hover:text-white transition-colors">FAQ</a>
-        <a href="#thereader" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 transition-all">
+        <a href="https://thereader.ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 transition-all">
           <span>Get #1 App Free</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </a>
@@ -240,11 +262,14 @@
       </div>
 
       <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4">
-        Top 3 Best News Apps in India (2026): Calm, Reader-First Picks
+        Top 3 Best News Apps in India (2026): <a href="https://thereader.ai" class="text-sky-400 underline decoration-sky-400/40 underline-offset-4 hover:decoration-sky-400">TheReader.AI</a>, Inshorts &amp; Way2News Compared
       </h1>
 
       <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-light mb-6">
         Tired of clickbait, notification spam, and pop-up ads? We tested India's leading news aggregators to find the cleanest, most trustworthy, and time-respecting reading experience.
+      </p>
+      <p class="text-xs text-slate-500 mb-6">
+        Disclosure: this comparison is published by the team that builds <a href="https://thereader.ai" class="text-sky-400 hover:underline">TheReader.AI</a>. Inshorts and Way2News were evaluated on the same criteria.
       </p>
 
       <!-- Author & Metadata Card -->
@@ -280,7 +305,7 @@
       <img src="/images/best_news_apps_hero.jpg" 
            alt="Official Tech Benchmark Leaderboard crowning TheReader.AI as #1 best news app in India 2026 with 100% ad-free AI summarizer, followed by #2 Inshorts and #3 Way2News" 
            class="w-full h-auto object-cover transform group-hover:scale-102 transition-transform duration-500"
-           loading="eager" width="1280" height="720">
+           loading="eager" width="1376" height="768">
       <div class="absolute bottom-3 right-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl text-[11px] text-slate-300 border border-slate-800">
         🏆 Benchmark Winner: #1 TheReader.AI (5 Stars) • #2 Inshorts • #3 Way2News
       </div>
@@ -293,7 +318,7 @@
         <span>The 30-Second Verdict: Which App Wins?</span>
       </div>
       <p class="text-sm text-slate-200 leading-relaxed mb-3">
-        If you are searching for the <strong>best news app in India in 2026</strong>, our top recommendation is unequivocally <strong class="text-white underline decoration-sky-400">TheReader.AI</strong>. It is the only mainstream mobile news app in the country operating with a strict <strong>100% ad-free architecture</strong>, intelligent AI summarization with full context, and rigorous publisher fact-checking. 
+        If you are searching for the <strong>best news app in India in 2026</strong>, our top recommendation is unequivocally <a href="https://thereader.ai" class="font-bold text-white underline decoration-sky-400">TheReader.AI</a>. It is the only mainstream mobile news app in the country operating with a strict <strong>100% ad-free architecture</strong>, intelligent AI summarization with full context, and rigorous publisher fact-checking. 
       </p>
       <p class="text-xs text-slate-400">
         While <strong>Inshorts</strong> remains convenient for rapid 60-word headline browsing and <strong>Way2News</strong> delivers hyperlocal district coverage, both platforms suffer from aggressive ad clutter, native sponsored content, and sensationalized notifications that compromise your reading experience.
@@ -345,7 +370,7 @@
       <div class="rounded-3xl overflow-hidden border border-slate-800 shadow-xl mb-6">
         <img src="/images/news_apps_comparison.jpg" 
              alt="Visual comparison showing traditional chaotic ad-heavy news app vs clean zen news app" 
-             class="w-full h-auto object-cover" loading="lazy" width="1280" height="720">
+             class="w-full h-auto object-cover" loading="lazy" width="1376" height="768">
       </div>
       <p class="text-xs text-slate-500 text-center italic mb-8">
         Figure 1: The contrast between intrusive legacy news apps (left) and distraction-free modern architectures (right).
@@ -434,10 +459,10 @@
         <!-- Product Interface Image -->
         <div class="mb-8 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
           <img src="/images/thereader_app_interface.jpg" 
-               alt="TheReader.AI smartphone interface displaying clean AI summary of Indian economy news with verified source badge and zero ads" 
-               class="w-full h-auto object-cover" loading="lazy" width="1280" height="720">
+               alt="TheReader.AI news app on Android showing an ad-free brief on India-US trade talks sourced from Mint, with 200+ sources, 60-second briefs and zero ads"
+               class="w-full h-auto object-cover" loading="lazy" width="1600" height="782">
           <div class="p-3 bg-slate-950 text-center text-xs text-slate-400 border-t border-slate-800">
-            TheReader.AI in action: Clean typography, concise bullet points on "Why It Matters", verified attribution, and zero advertisement clutter.
+            TheReader.AI in action: 60-second briefs from 200+ trusted publishers like The Hindu, Mint and Reuters, with clear source attribution and zero ads.
           </div>
         </div>
 
@@ -508,7 +533,7 @@
             <div class="font-bold text-white text-sm">Experience Distraction-Free News Today</div>
             <div class="text-xs text-slate-300">Join thousands of discerning Indian readers switching to TheReader.AI.</div>
           </div>
-          <a href="/" class="shrink-0 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-emerald-400 hover:from-sky-300 hover:to-emerald-300 text-slate-950 font-extrabold text-xs shadow-lg shadow-sky-500/20 transition-transform active:scale-95">
+          <a href="https://thereader.ai" class="shrink-0 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-emerald-400 hover:from-sky-300 hover:to-emerald-300 text-slate-950 font-extrabold text-xs shadow-lg shadow-sky-500/20 transition-transform active:scale-95">
             Download TheReader.AI Free
           </a>
         </div>
@@ -781,7 +806,7 @@
         Step away from clickbait and ad clutter. Spend ten mindful minutes a day staying genuinely informed on Indian economy, policy, technology, and global affairs.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-3">
-        <a href="/" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-emerald-400 hover:from-sky-300 hover:to-emerald-300 text-slate-950 font-extrabold text-sm shadow-xl shadow-sky-500/20 transition-all">
+        <a href="https://thereader.ai" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-sky-400 to-emerald-400 hover:from-sky-300 hover:to-emerald-300 text-slate-950 font-extrabold text-sm shadow-xl shadow-sky-500/20 transition-all">
           Get TheReader.AI (100% Free)
         </a>
         <a href="#comparison" class="px-5 py-3 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition-all">
@@ -796,7 +821,7 @@
   <footer class="border-t border-slate-800/80 mt-16 py-10 px-4 text-center text-xs text-slate-500">
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        © 2026 TheReader.AI Editorial. Independent Tech Review.
+        © 2026 TheReader.AI Editorial. Disclosure: this review is published by the team behind <a href="https://thereader.ai" class="text-slate-400 hover:text-white underline">TheReader.AI</a>.
       </div>
       <div class="flex items-center gap-4 text-slate-400">
         <a href="/" class="hover:text-white transition-colors">Home</a>

@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "start": "node server.js",
-    "generate": "node generate-qr.js"
+    "generate": "node generate-qr.js",
+    "css": "npx -y tailwindcss@3.4.17 -i css/input.css -o css/article.css --minify"
   },
   "keywords": [
     "qr-code",
